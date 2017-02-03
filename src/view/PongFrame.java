@@ -16,7 +16,7 @@ public class PongFrame extends JFrame
 	{
 		super();
 		this.baseController = baseController;
-		//this.appPanel = new PongPanel(baseController);
+		this.appPanel = new PongPanel(baseController);
 		
 		this.setupFrame();
 		this.setupListeners();
@@ -24,8 +24,8 @@ public class PongFrame extends JFrame
 	
 	private void setupFrame()
 	{
-		//this.setContentPane(appPanel);
-		this.setSize(new Dimension(600, 600));
+		this.setContentPane(appPanel);
+		this.setSize(new Dimension(700, 700));
 		this.setTitle("Extreme Pong");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
