@@ -1,22 +1,21 @@
 package view;
 
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 
 import controller.PongController;
-import model.KeyboardListener;
-
-import java.awt.Dimension;
 
 public class PongFrame extends JFrame
 {
-	
-	private PongController baseController;
+	private PongController pongController;
 	private PongPanel appPanel;
-	public PongFrame(PongController baseController)
+	
+	public PongFrame(PongController pongController)
 	{
 		super();
-		this.baseController = baseController;
-		this.appPanel = new PongPanel(baseController);
+		this.pongController = pongController;
+		this.appPanel = new PongPanel(pongController);
 		
 		this.setupFrame();
 		this.setupListeners();
@@ -24,14 +23,19 @@ public class PongFrame extends JFrame
 	
 	private void setupFrame()
 	{
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setContentPane(appPanel);
-		this.setSize(new Dimension(700, 700));
+		this.setSize(new Dimension(700, 500));
 		this.setTitle("Extreme Pong");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 	
 	private void setupListeners(){
-		this.addKeyListener(new KeyboardListener());
+		this.addKeyListener(pongController.getKeyboardListeners());
+	}
+	
+	public PongPanel getPongPanel(){
+		return appPanel;
 	}
 }

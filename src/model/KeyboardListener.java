@@ -7,50 +7,41 @@ public class KeyboardListener implements KeyListener {
 
 	private boolean upPressed;
 	private boolean downPressed;
-	private boolean leftPressed;
-	private boolean rightPressed;
+	private boolean wPressed;
+	private boolean sPressed;
+	
 	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
+	public void keyTyped(KeyEvent e) { } // unused
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-			System.out.println("Up!");
+		if(e.getKeyCode() == KeyEvent.VK_UP){
 			upPressed = true;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-			System.out.println("Left!");
+		if(e.getKeyCode() == KeyEvent.VK_DOWN){
 			downPressed = true;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
-			System.out.println("Right!");
-			leftPressed = true;
+		if(e.getKeyCode() == KeyEvent.VK_W){
+			wPressed = true;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
-			System.out.println("Down!");
-			rightPressed = true;
+		if(e.getKeyCode() == KeyEvent.VK_S){
+			sPressed = true;
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-			System.out.println("released");
+		if(e.getKeyCode() == KeyEvent.VK_UP){
 			upPressed = false;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-			System.out.println("Left!");
-			leftPressed = false;
-		}
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
-			System.out.println("Right!");
-			rightPressed = false;
-		}
-		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
-			System.out.println("Down!");
+		if(e.getKeyCode() == KeyEvent.VK_DOWN){
 			downPressed = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_W){
+			wPressed = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_S){
+			sPressed = false;
 		}
 	}
 
@@ -62,12 +53,12 @@ public class KeyboardListener implements KeyListener {
 		return downPressed;
 	}
 
-	public boolean isLeftPressed() {
-		return leftPressed;
+	public boolean isWPressed() {
+		return wPressed;
 	}
 
-	public boolean isRightPressed() {
-		return rightPressed;
+	public boolean isSPressed() {
+		return sPressed;
 	}
 
 }

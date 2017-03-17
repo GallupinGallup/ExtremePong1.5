@@ -1,44 +1,40 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SpringLayout;
 
 import controller.PongController;
-import model.KeyboardListener;
+import model.Ball;
+import model.Paddle;
 
 public class PongPanel extends JPanel 
 {
-	private PongController baseController;
+	private PongController pongController;
+	private Color purpleColor;
+	private Color redColor;
 	
-
-	public PongPanel(PongController baseController)
+	public PongPanel(PongController pongController)
 	{
 		super();
-		this.baseController = baseController;
-		
-		
-		
-		setupPanel();
-		setupListeners();
-	}
-
-	private void setupPanel() 
-	{
-	}
-
-	private void setupListeners() 
-	{
-		this.addKeyListener(new KeyboardListener());
+		this.pongController = pongController;
+		this.purpleColor = new Color(137, 0, 255);	
+		this.redColor = new Color(178,34,34);
 	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		Paddle leftPaddle = pongController.getGameLoop().getLeftPaddle();
+		Paddle rightPaddle = pongController.getGameLoop().getRightPaddle();
+		Ball ball = pongController.getGameLoop().getBall();
+		
+		g.setColor(purpleColor);
+		g.fillRect(leftPaddle.getX(), leftPaddle.getY(), leftPaddle.getWidth(), leftPaddle.getHeight());
+		g.fillRect(rightPaddle.getX(), rightPaddle.getY(), rightPaddle.getWidth(), rightPaddle.getHeight());
+		g.setColor(redColor);
+		g.fillOval(ball.getX(), ball.getY(), ball.getWidth(), ball.getHeight());
 		
 	}
 }
