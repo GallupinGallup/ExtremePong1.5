@@ -1,14 +1,14 @@
 package model;
 
 public class Ball {
-	
+
 	private int x;
 	private int y;
-	
+
 	private int width;
 	private int height;
-	
-	public Ball(){
+
+	public Ball() {
 		this.x = 0;
 		this.y = 0;
 		this.width = 20;

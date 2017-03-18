@@ -6,23 +6,20 @@ import javax.swing.JFrame;
 
 import controller.PongController;
 
-public class PongFrame extends JFrame
-{
+public class PongFrame extends JFrame {
 	private PongController pongController;
 	private PongPanel appPanel;
-	
-	public PongFrame(PongController pongController)
-	{
+
+	public PongFrame(PongController pongController) {
 		super();
 		this.pongController = pongController;
 		this.appPanel = new PongPanel(pongController);
-		
+
 		this.setupFrame();
 		this.setupListeners();
 	}
-	
-	private void setupFrame()
-	{
+
+	private void setupFrame() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setContentPane(appPanel);
 		this.setSize(new Dimension(700, 500));
@@ -30,12 +27,12 @@ public class PongFrame extends JFrame
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
-	
-	private void setupListeners(){
+
+	private void setupListeners() {
 		this.addKeyListener(pongController.getKeyboardListeners());
 	}
-	
-	public PongPanel getPongPanel(){
+
+	public PongPanel getPongPanel() {
 		return appPanel;
 	}
 }
