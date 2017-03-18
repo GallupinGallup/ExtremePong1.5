@@ -10,6 +10,9 @@ public class GameLoop extends Thread {
 	private Paddle leftPaddle;
 	private Paddle rightPaddle;
 	private Ball ball;
+	int yMove = (int) (Math.random()*10) - 5;
+	int xMove = (int) (Math.random()*10) - 5;
+	
 
 	public GameLoop(PongController pongController) {
 		this.pongController = pongController;
@@ -54,23 +57,42 @@ public class GameLoop extends Thread {
 		int gameHeight = pongController.getPongFrame().getHeight();
 		
 		//If touching top or bottom tests
-		if(ball.getX() != rightPaddle.getX() || ball.getY() >= rightPaddle.getY() - (rightPaddle.getHeight() / 2) &&
-				 (ball.getY() != 20) && (ball.getY() != gameHeight - 20))
+		if(ball.getY() != 20 && ball.getY() != gameHeight - 20)
 		{
 			//If touching left paddle test
-			if((ball.getX() != leftPaddle.getX() + (ball.getHeight() /2) && ball.getY() != leftPaddle.getY()))
+			if((ball.getX() != leftPaddle.getX() + (ball.getWidth() /2) && ball.getY() != leftPaddle.getY()))
 			{
 				//If touching right paddle test
-				if(ball.getX() != rightPaddle.getX() && ball.getY() >= rightPaddle.getY() - (rightPaddle.getHeight() / 2) && ball.getY() <= rightPaddle.getY() + (rightPaddle.getHeight() / 2))
+				if(ball.getX() != rightPaddle.getX() - (ball.getWidth() + rightPaddle.getWidth()) && 
+						ball.getY() <= rightPaddle.getY() - (rightPaddle.getHeight() / 2) && ball.getY() >= rightPaddle.getY() + (rightPaddle.getHeight() / 2))
 				{
 					//If touching left or right side tests
-					if((ball.getX() != gameWidth - 20) && (ball.getX() != 0))
+					if((ball.getX() != gameWidth - 10) && (ball.getX() != 100))
 					{
-						ball.setX(ball.getX() + 1);
+						ball.setX(ball.getX() + xMove);
+						ball.setY(ball.getY() + yMove);
+					}else{
+						ball.setX(ball.getX() + xMove);
+						ball.setY(ball.getY() + yMove);
 					}
 				}
+//				}else{
+//					//If touching left or right side tests
+//					xMove = xMove * -1;
+//					if((ball.getX() != gameWidth - 10) && (ball.getX() != 100))
+//					{
+//						ball.setX(ball.getX() + xMove);
+//						ball.setY(ball.getY() + yMove);
+//					}else{
+//						ball.setX(ball.getX() + xMove);
+//						ball.setY(ball.getY() + yMove);
+//					}
+				}
+			}else{
+				ball.setX(ball.getX() + xMove);
+				ball.setY(ball.getY() + yMove);
 			}
-		}
+		
 		
 		if (keyboard.isUpPressed() && rightPaddle.getY() >= 3.1) {
 			rightPaddle.setY(rightPaddle.getY() - 3);
