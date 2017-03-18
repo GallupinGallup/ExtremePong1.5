@@ -71,28 +71,10 @@ public class GameLoop extends Thread {
 					{
 						ball.setX(ball.getX() + xMove);
 						ball.setY(ball.getY() + yMove);
-					}else{
-						ball.setX(ball.getX() + xMove);
-						ball.setY(ball.getY() + yMove);
-					}
+					}		
 				}
-//				}else{
-//					//If touching left or right side tests
-//					xMove = xMove * -1;
-//					if((ball.getX() != gameWidth - 10) && (ball.getX() != 100))
-//					{
-//						ball.setX(ball.getX() + xMove);
-//						ball.setY(ball.getY() + yMove);
-//					}else{
-//						ball.setX(ball.getX() + xMove);
-//						ball.setY(ball.getY() + yMove);
-//					}
-				}
-			}else{
-				ball.setX(ball.getX() + xMove);
-				ball.setY(ball.getY() + yMove);
 			}
-		
+		}
 		
 		if (keyboard.isUpPressed() && rightPaddle.getY() >= 3.1) {
 			rightPaddle.setY(rightPaddle.getY() - 3);
