@@ -47,7 +47,8 @@ public class GameLoop extends Thread {
 		this.ball = new Ball();
 		this.ball.setX((int) (gameWidth / 2 - (ball.getWidth() / 2)));
 		this.ball.setY((int) (gameHeight / 2 - (ball.getHeight() / 2)));
-
+		yMove = 3;
+		xMove = -4;
 	}
 
 	private void doGameLoop() {
@@ -55,24 +56,44 @@ public class GameLoop extends Thread {
 		int gameWidth = pongController.getPongFrame().getWidth();
 		int gameHeight = pongController.getPongFrame().getHeight();
 
-		// If touching top or bottom tests
-		if (ball.getY() > 2 && ball.getY() < gameHeight + (ball.getHeight()/2)) {
-			// If touching left paddle test
-						//if ((ball.getX() != leftPaddle.getX() + (ball.getWidth() / 2) && ball.getY() != leftPaddle.getY())) {
-							//If touching right paddle test
-							//if (ball.getX() != rightPaddle.getX() - (ball.getWidth() + rightPaddle.getWidth())
-									//&& ball.getY() >= rightPaddle.getY() - (rightPaddle.getHeight() / 2)
-									//&& ball.getY() <= rightPaddle.getY() + (rightPaddle.getHeight() / 2)) {
-								//If touching left or right side tests
-								//if ((ball.getX() != gameWidth - 10) && (ball.getX() != 100)) {
-						xMove = 0;
-						yMove = 4;
-						ball.setX(ball.getX() + xMove);
-						ball.setY(ball.getY() + yMove);
-					//}
-				//}
-			//}
-		}else{
+		// If touching top test
+		if (ball.getY() > 2) {
+
+			// If touching bottom test
+			if (ball.getY() < gameHeight - 40) {
+
+				// If touching left paddle test
+//				if ((ball.getX() > leftPaddle.getX() + (ball.getWidth() / 2)
+//						&& (ball.getY() < leftPaddle.getY() - leftPaddle.getHeight() / 2)
+//						&& (ball.getY() > leftPaddle.getY() + leftPaddle.getHeight() / 2))) {
+
+					// If touching right paddle test
+//					if (ball.getX() != rightPaddle.getX() - (ball.getWidth() + rightPaddle.getWidth())
+//							&& ball.getY() >= rightPaddle.getY() - (rightPaddle.getHeight() / 2)
+//							&& ball.getY() <= rightPaddle.getY() + (rightPaddle.getHeight() / 2)) {
+
+						// If touching left or right side tests
+						if ((ball.getX() < gameWidth - 17) && (ball.getX() > -1)) {
+
+							ball.setX(ball.getX() + xMove);
+							ball.setY(ball.getY() + yMove);
+						} else {
+							xMove = xMove * -1;
+							ball.setX(ball.getX() + xMove);
+							ball.setY(ball.getY() + yMove);
+						}
+//					}
+//				} else {
+//					xMove = xMove * -1;
+//					ball.setX(ball.getX() + xMove);
+//					ball.setY(ball.getY() + yMove);
+//				}
+			} else {
+				yMove = yMove * -1;
+				ball.setX(ball.getX() + xMove);
+				ball.setY(ball.getY() + yMove);
+			}
+		} else {
 			yMove = yMove * -1;
 			ball.setX(ball.getX() + xMove);
 			ball.setY(ball.getY() + yMove);
