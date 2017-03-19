@@ -47,7 +47,7 @@ public class GameLoop extends Thread {
 		this.ball = new Ball();
 		this.ball.setX((int) (gameWidth / 2 - (ball.getWidth() / 2)));
 		this.ball.setY((int) (gameHeight / 2 - (ball.getHeight() / 2)));
-		yMove = 3;
+		yMove = 0;
 		xMove = -4;
 	}
 
@@ -62,14 +62,14 @@ public class GameLoop extends Thread {
 			if (ball.getY() < gameHeight - 40) {
 
 				// If touching left paddle test
-//				if ((ball.getX() + ball.getWidth() / 2 > leftPaddle.getX() + leftPaddle.getWidth() 
-//						|| (ball.getY() < leftPaddle.getY() + leftPaddle.getHeight() / 2)
-//						|| (ball.getY() > leftPaddle.getY() - leftPaddle.getHeight() / 2))) {
+				if ((ball.getX() > leftPaddle.getX() + leftPaddle.getWidth()) 
+						|| (ball.getY() + ball.getHeight() / 2 > leftPaddle.getY() + leftPaddle.getHeight())
+						|| (ball.getY() < leftPaddle.getY() - leftPaddle.getHeight())) {
 
 					// If touching right paddle test
-//					if (ball.getX() != rightPaddle.getX() - (ball.getWidth() + rightPaddle.getWidth())
-//							&& ball.getY() >= rightPaddle.getY() - (rightPaddle.getHeight() / 2)
-//							&& ball.getY() <= rightPaddle.getY() + (rightPaddle.getHeight() / 2)) {
+					if ((ball.getX() + ball.getWidth() > rightPaddle.getX()) 
+						|| (ball.getY() + ball.getHeight() / 2 > rightPaddle.getY() + rightPaddle.getHeight())
+						|| (ball.getY() < rightPaddle.getY() - rightPaddle.getHeight())) {
 
 						// If touching left or right side tests
 						if ((ball.getX() < gameWidth - 17) && (ball.getX() > -1)) {
@@ -78,10 +78,10 @@ public class GameLoop extends Thread {
 						} else {
 							xBounce();
 						}
-//					}
-//				} else {
-//					xBounce();
-//				}
+					}
+				} else {
+					xBounce();
+				}
 			} else {
 				yBounce();
 			}
