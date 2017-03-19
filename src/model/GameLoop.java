@@ -57,7 +57,14 @@ public class GameLoop extends Thread {
 
 		// If touching top or bottom tests
 		if (ball.getY() > 2 && ball.getY() < gameHeight + (ball.getHeight()/2)) {
-			
+			// If touching left paddle test
+						//if ((ball.getX() != leftPaddle.getX() + (ball.getWidth() / 2) && ball.getY() != leftPaddle.getY())) {
+							//If touching right paddle test
+							//if (ball.getX() != rightPaddle.getX() - (ball.getWidth() + rightPaddle.getWidth())
+									//&& ball.getY() >= rightPaddle.getY() - (rightPaddle.getHeight() / 2)
+									//&& ball.getY() <= rightPaddle.getY() + (rightPaddle.getHeight() / 2)) {
+								//If touching left or right side tests
+								//if ((ball.getX() != gameWidth - 10) && (ball.getX() != 100)) {
 						xMove = 0;
 						yMove = 4;
 						ball.setX(ball.getX() + xMove);
