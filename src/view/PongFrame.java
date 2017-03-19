@@ -22,7 +22,7 @@ public class PongFrame extends JFrame {
 	private void setupFrame() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setContentPane(appPanel);
-		this.setSize(new Dimension(700, 500));
+		this.setSize(new Dimension(800, 500));
 		this.setTitle("Extreme Pong");
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);

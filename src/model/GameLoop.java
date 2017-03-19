@@ -52,7 +52,6 @@ public class GameLoop extends Thread {
 	}
 
 	private void doGameLoop() {
-		KeyboardListener keyboard = pongController.getKeyboardListeners();
 		int gameWidth = pongController.getPongFrame().getWidth();
 		int gameHeight = pongController.getPongFrame().getHeight();
 
@@ -63,9 +62,9 @@ public class GameLoop extends Thread {
 			if (ball.getY() < gameHeight - 40) {
 
 				// If touching left paddle test
-//				if ((ball.getX() > leftPaddle.getX() + (ball.getWidth() / 2)
-//						&& (ball.getY() < leftPaddle.getY() - leftPaddle.getHeight() / 2)
-//						&& (ball.getY() > leftPaddle.getY() + leftPaddle.getHeight() / 2))) {
+//				if ((ball.getX() + ball.getWidth() / 2 > leftPaddle.getX() + leftPaddle.getWidth() 
+//						|| (ball.getY() < leftPaddle.getY() + leftPaddle.getHeight() / 2)
+//						|| (ball.getY() > leftPaddle.getY() - leftPaddle.getHeight() / 2))) {
 
 					// If touching right paddle test
 //					if (ball.getX() != rightPaddle.getX() - (ball.getWidth() + rightPaddle.getWidth())
@@ -74,31 +73,41 @@ public class GameLoop extends Thread {
 
 						// If touching left or right side tests
 						if ((ball.getX() < gameWidth - 17) && (ball.getX() > -1)) {
-
 							ball.setX(ball.getX() + xMove);
 							ball.setY(ball.getY() + yMove);
 						} else {
-							xMove = xMove * -1;
-							ball.setX(ball.getX() + xMove);
-							ball.setY(ball.getY() + yMove);
+							xBounce();
 						}
 //					}
 //				} else {
-//					xMove = xMove * -1;
-//					ball.setX(ball.getX() + xMove);
-//					ball.setY(ball.getY() + yMove);
+//					xBounce();
 //				}
 			} else {
-				yMove = yMove * -1;
-				ball.setX(ball.getX() + xMove);
-				ball.setY(ball.getY() + yMove);
+				yBounce();
 			}
 		} else {
-			yMove = yMove * -1;
-			ball.setX(ball.getX() + xMove);
-			ball.setY(ball.getY() + yMove);
+			yBounce();
 		}
-
+		paddleMove();
+	}
+	private void xBounce()
+	{
+		xMove = xMove * -1;
+		ball.setX(ball.getX() + xMove);
+		ball.setY(ball.getY() + yMove);
+	}
+	private void yBounce()
+	{
+		yMove = yMove * -1;
+		ball.setX(ball.getX() + xMove);
+		ball.setY(ball.getY() + yMove);
+	}
+	
+	private void paddleMove()
+	{
+		int gameWidth = pongController.getPongFrame().getWidth();
+		int gameHeight = pongController.getPongFrame().getHeight();
+		KeyboardListener keyboard = pongController.getKeyboardListeners();
 		if (keyboard.isUpPressed() && rightPaddle.getY() >= 3.1) {
 			rightPaddle.setY(rightPaddle.getY() - 3);
 		}
