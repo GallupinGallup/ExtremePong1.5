@@ -21,7 +21,7 @@ public class GameLoop extends Thread {
 	public void run() {
 		setupGame();
 		repaintScreen();
-
+		
 		while (true) {
 			doGameLoop();
 			repaintScreen();
