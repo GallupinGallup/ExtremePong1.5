@@ -27,7 +27,12 @@ public class PongController
 	}
 	
 	public PongFrame getPongFrame(){
+		
+		
+		
+		
 		return pongFrame;
+		
 	}
 	
 	public GameLoop getGameLoop(){
