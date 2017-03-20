@@ -62,12 +62,12 @@ public class GameLoop extends Thread {
 			if (ball.getY() < gameHeight - 40) {
 
 				// If touching left paddle test
-				if ((ball.getX() > leftPaddle.getX() + leftPaddle.getWidth()) 
-						|| (ball.getY() + ball.getHeight() > leftPaddle.getY() + leftPaddle.getHeight())
+				if ((ball.getX() > leftPaddle.getX() + leftPaddle.getWidth())
+						|| (ball.getY() > leftPaddle.getY() + leftPaddle.getHeight())
 						|| (ball.getY() + ball.getHeight() < leftPaddle.getY())) {
 
 					// If touching right paddle test
-					if ((ball.getX() + ball.getWidth() < rightPaddle.getX()) 
+					if ((ball.getX() + ball.getWidth() < rightPaddle.getX())
 							|| (ball.getY() > rightPaddle.getY() + rightPaddle.getHeight())
 							|| (ball.getY() + ball.getHeight() < rightPaddle.getY())) {
 
@@ -92,21 +92,20 @@ public class GameLoop extends Thread {
 		}
 		paddleMove();
 	}
-	private void xBounce()
-	{
+
+	private void xBounce() {
 		xMove = xMove * -1;
 		ball.setX(ball.getX() + xMove);
 		ball.setY(ball.getY() + yMove);
 	}
-	private void yBounce()
-	{
+
+	private void yBounce() {
 		yMove = yMove * -1;
 		ball.setX(ball.getX() + xMove);
 		ball.setY(ball.getY() + yMove);
 	}
-	
-	private void paddleMove()
-	{
+
+	private void paddleMove() {
 		int gameHeight = pongController.getPongFrame().getHeight();
 		KeyboardListener keyboard = pongController.getKeyboardListeners();
 		if (keyboard.isUpPressed() && rightPaddle.getY() >= 3.1) {
