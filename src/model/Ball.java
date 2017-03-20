@@ -19,16 +19,16 @@ public class Ball {
 		return x;
 	}
 
-	public void setX(int x) {
-		this.x = x;
+	public void setX(int d) {
+		this.x = d;
 	}
 
 	public int getY() {
 		return y;
 	}
 
-	public void setY(int y) {
-		this.y = y;
+	public void setY(int d) {
+		this.y = d;
 	}
 
 	public int getWidth() {

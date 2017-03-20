@@ -10,8 +10,11 @@ public class GameLoop extends Thread {
 	private Paddle leftPaddle;
 	private Paddle rightPaddle;
 	private Ball ball;
-	int yMove = (int) (Math.random() * 10) - 5;
-	int xMove = (int) (Math.random() * 10) - 5;
+	int yMove = (int) (Math.random() * 7) - 4;
+	int xMove = (int) (Math.random() * 7) - 4;
+	private static int player1Score = 0;
+	private static int player2Score = 0;
+	private static String score = "Player 1: " + player1Score + " Player 2: " + player2Score;
 
 	public GameLoop(PongController pongController) {
 		this.pongController = pongController;
@@ -21,7 +24,14 @@ public class GameLoop extends Thread {
 	public void run() {
 		setupGame();
 		repaintScreen();
-		
+		while (yMove == 0)
+		{
+			double yMove = (int) (Math.random() * 10) - 5;
+		}
+		while (xMove == 0)
+		{
+			double xMove = (int) (Math.random() * 10) - 5;
+		}
 		while (true) {
 			doGameLoop();
 			repaintScreen();
@@ -92,6 +102,11 @@ public class GameLoop extends Thread {
 	}
 
 	private void xBounce() {
+		if(xMove < 0 && xMove > -5){
+			xMove = xMove - 1;
+		}else if (xMove < 5){
+			yMove = xMove + 1;
+		}
 		xMove = xMove * -1;
 		ball.setX(ball.getX() + xMove);
 		ball.setY(ball.getY() + yMove);
@@ -132,7 +147,13 @@ public class GameLoop extends Thread {
 	}
 	private void points()
 	{
-		
+		if(ball.getX() > -1)
+		{
+			player2Score = player2Score + 1;
+		}else{
+			player1Score = player1Score + 1;
+		}
+		score = "Player 1: " + player1Score + " Player 2: " + player2Score;
 	}
 
 	public Paddle getLeftPaddle() {
@@ -158,5 +179,8 @@ public class GameLoop extends Thread {
 	public void setBall(Ball ball) {
 		this.ball = ball;
 	}
-
+	
+	public static String getScore() {
+		return score;
+	}
 }

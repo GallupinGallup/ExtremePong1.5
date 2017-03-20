@@ -2,14 +2,12 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import controller.PongController;
 import model.Ball;
+import model.GameLoop;
 import model.Paddle;
 
 public class PongPanel extends JPanel {
@@ -26,6 +24,9 @@ public class PongPanel extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
+		int gameWidth = pongController.getPongFrame().getWidth();
+
+		
 		super.paintComponent(g);
 		Paddle leftPaddle = pongController.getGameLoop().getLeftPaddle();
 		Paddle rightPaddle = pongController.getGameLoop().getRightPaddle();
