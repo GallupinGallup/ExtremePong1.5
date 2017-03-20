@@ -47,8 +47,6 @@ public class GameLoop extends Thread {
 		this.ball = new Ball();
 		this.ball.setX((int) (gameWidth / 2 - (ball.getWidth() / 2)));
 		this.ball.setY((int) (gameHeight / 2 - (ball.getHeight() / 2)));
-		yMove = 0;
-		xMove = -4;
 	}
 
 	private void doGameLoop() {
@@ -76,7 +74,7 @@ public class GameLoop extends Thread {
 							ball.setX(ball.getX() + xMove);
 							ball.setY(ball.getY() + yMove);
 						} else {
-							xBounce();
+							points();
 						}
 					} else {
 						xBounce();
@@ -131,6 +129,10 @@ public class GameLoop extends Thread {
 															// frame
 			}
 		});
+	}
+	private void points()
+	{
+		
 	}
 
 	public Paddle getLeftPaddle() {
