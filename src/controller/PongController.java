@@ -22,9 +22,19 @@ public class PongController {
 	public KeyboardListener getKeyboardListeners() {
 		return keyboardListener;
 	}
+<<<<<<< HEAD
 
 	public PongFrame getPongFrame() {
+=======
+	
+	public PongFrame getPongFrame(){
+		
+		
+		
+		
+>>>>>>> origin/master
 		return pongFrame;
+		
 	}
 
 	public GameLoop getGameLoop() {
