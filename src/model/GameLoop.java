@@ -32,6 +32,7 @@ public class GameLoop extends Thread {
 		{
 			double xMove = (int) (Math.random() * 10) - 5;
 		}
+		yMove= 0;
 		while (true) {
 			doGameLoop();
 			repaintScreen();
