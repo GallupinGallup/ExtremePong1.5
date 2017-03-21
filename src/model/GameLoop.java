@@ -26,13 +26,12 @@ public class GameLoop extends Thread {
 		repaintScreen();
 		while (yMove == 0)
 		{
-			double yMove = (int) (Math.random() * 10) - 5;
+			yMove = (int) (Math.random() * 10) - 5;
 		}
 		while (xMove == 0)
 		{
-			double xMove = (int) (Math.random() * 10) - 5;
+			xMove = (int) (Math.random() * 10) - 5;
 		}
-		yMove= 0;
 		while (true) {
 			doGameLoop();
 			repaintScreen();
@@ -155,6 +154,10 @@ public class GameLoop extends Thread {
 			player1Score = player1Score + 1;
 		}
 		score = "Player 1: " + player1Score + " Player 2: " + player2Score;
+		if(player1Score == 10 || player2Score == 10)
+		{
+			
+		}
 	}
 
 	public Paddle getLeftPaddle() {
