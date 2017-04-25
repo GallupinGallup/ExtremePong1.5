@@ -4,12 +4,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyboardListener implements KeyListener {
-
 	private boolean upPressed;
 	private boolean downPressed;
 	private boolean wPressed;
 	private boolean sPressed;
 	private boolean pPressed;
+	private boolean running = true;
+	public boolean playing = false;
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -29,6 +30,13 @@ public class KeyboardListener implements KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_S) {
 			sPressed = true;
 		}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			playing = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_Q) {
+			running = false;
+			System.exit(0);
+		}
 	}
 
 	@Override
@@ -45,8 +53,6 @@ public class KeyboardListener implements KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_S) {
 			sPressed = false;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_P)
-			;
 	}
 
 	public boolean isUpPressed() {
@@ -69,4 +75,11 @@ public class KeyboardListener implements KeyListener {
 		return pPressed;
 	}
 
+	public boolean isPlaying() {
+		return playing;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
 }

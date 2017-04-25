@@ -31,12 +31,14 @@ public class PongPanel extends JPanel {
 		Paddle leftPaddle = pongController.getGameLoop().getLeftPaddle();
 		Paddle rightPaddle = pongController.getGameLoop().getRightPaddle();
 		Ball ball = pongController.getGameLoop().getBall();
+		String score =  pongController.getGameLoop().getScore();
 
 		g.setColor(purpleColor);
 		g.fillRect(leftPaddle.getX(), leftPaddle.getY(), leftPaddle.getWidth(), leftPaddle.getHeight());
 		g.fillRect(rightPaddle.getX(), rightPaddle.getY(), rightPaddle.getWidth(), rightPaddle.getHeight());
 		g.setColor(redColor);
 		g.fillOval(ball.getX(), ball.getY(), ball.getWidth(), ball.getHeight());
+		g.drawString(score, 30, 10);
 		
 	}
 }

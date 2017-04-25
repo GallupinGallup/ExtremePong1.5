@@ -1,12 +1,10 @@
 package model;
 
 import javax.swing.SwingUtilities;
-
 import controller.PongController;
 
 public class GameLoop extends Thread {
 	private PongController pongController;
-
 	private Paddle leftPaddle;
 	private Paddle rightPaddle;
 	private Ball ball;
@@ -15,6 +13,8 @@ public class GameLoop extends Thread {
 	private static int player1Score = 0;
 	private static int player2Score = 0;
 	private static String score = "Player 1: " + player1Score + " Player 2: " + player2Score;
+	private int gameSpeed = 16;
+	private boolean running = true;
 
 	public GameLoop(PongController pongController) {
 		this.pongController = pongController;
@@ -22,63 +22,62 @@ public class GameLoop extends Thread {
 
 	@Override
 	public void run() {
+		KeyboardListener keyboard = pongController.getKeyboardListeners();
 		setupGame();
 		repaintScreen();
-		while (yMove == 0)
-		{
-			yMove = (int) (Math.random() * 10) - 5;
-		}
-		while (xMove == 0)
-		{
-			xMove = (int) (Math.random() * 10) - 5;
-		}
+		
 		while (true) {
-			doGameLoop();
-			repaintScreen();
-
 			try {
-				Thread.sleep(16); // 60 fps
+				Thread.sleep(gameSpeed);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			paddleMove();
+			if (keyboard.playing) {
+				doGameLoop();
+				
+			}else{
+				do {
+					yMove = (int) (Math.random() * 6) - 4;
+				}while (yMove == 0);
+				do {
+					xMove = (int) (Math.random() * 6) - 4;
+				}while (xMove == 0);
+			}
+			repaintScreen();
 		}
 	}
 
 	private void setupGame() {
+		KeyboardListener keyboard = pongController.getKeyboardListeners();
 		int gameWidth = pongController.getPongFrame().getWidth();
 		int gameHeight = pongController.getPongFrame().getHeight();
-
 		this.leftPaddle = new Paddle(10);
 		this.leftPaddle.setY((int) (gameHeight / 2 - (leftPaddle.getHeight() / 2)));
-
 		this.rightPaddle = new Paddle(gameWidth - 20);
 		this.rightPaddle.setY((int) (gameHeight / 2 - (rightPaddle.getHeight() / 2)));
-
 		this.ball = new Ball();
 		this.ball.setX((int) (gameWidth / 2 - (ball.getWidth() / 2)));
 		this.ball.setY((int) (gameHeight / 2 - (ball.getHeight() / 2)));
+		keyboard.playing = false;
 	}
-
+//startComplexity
+	//startAbstraction
 	private void doGameLoop() {
 		int gameWidth = pongController.getPongFrame().getWidth();
 		int gameHeight = pongController.getPongFrame().getHeight();
-
 		// If touching top test
 		if (ball.getY() > 2) {
-
 			// If touching bottom test
 			if (ball.getY() < gameHeight - 40) {
-
 				// If touching left paddle test
 				if ((ball.getX() > leftPaddle.getX() + leftPaddle.getWidth())
 						|| (ball.getY() > leftPaddle.getY() + leftPaddle.getHeight())
 						|| (ball.getY() + ball.getHeight() < leftPaddle.getY())) {
-
 					// If touching right paddle test
 					if ((ball.getX() + ball.getWidth() < rightPaddle.getX())
 							|| (ball.getY() > rightPaddle.getY() + rightPaddle.getHeight())
 							|| (ball.getY() + ball.getHeight() < rightPaddle.getY())) {
-
 						// If touching left or right side tests
 						if ((ball.getX() < gameWidth - 17) && (ball.getX() > -1)) {
 							ball.setX(ball.getX() + xMove);
@@ -98,14 +97,11 @@ public class GameLoop extends Thread {
 		} else {
 			yBounce();
 		}
-		paddleMove();
 	}
-
+//endComplexity
 	private void xBounce() {
-		if(xMove < 0 && xMove > -5){
-			xMove = xMove - 1;
-		}else if (xMove < 5){
-			yMove = xMove + 1;
+		if (gameSpeed >= 8) {
+			gameSpeed = gameSpeed - 2;
 		}
 		xMove = xMove * -1;
 		ball.setX(ball.getX() + xMove);
@@ -117,6 +113,7 @@ public class GameLoop extends Thread {
 		ball.setX(ball.getX() + xMove);
 		ball.setY(ball.getY() + yMove);
 	}
+	//endAbstraction
 
 	private void paddleMove() {
 		int gameHeight = pongController.getPongFrame().getHeight();
@@ -137,27 +134,28 @@ public class GameLoop extends Thread {
 
 	private void repaintScreen() {
 		SwingUtilities.invokeLater(new Runnable() { // repaints the screen on
-													// the EDT
+			// the EDT
 			@Override
 			public void run() {
 				pongController.getPongFrame().repaint(); // repaint to entire
-															// frame
+				// frame
 			}
 		});
 	}
-	private void points()
-	{
-		if(ball.getX() > -1)
-		{
+
+	private void points() {
+		if (ball.getX() > -1) {
 			player2Score = player2Score + 1;
-		}else{
+		} else {
 			player1Score = player1Score + 1;
 		}
 		score = "Player 1: " + player1Score + " Player 2: " + player2Score;
-		if(player1Score == 10 || player2Score == 10)
-		{
-			
+		if (player1Score >= 10 || player2Score >= 10) {
+			player1Score = 0;
+			player2Score = 0;
+			gameSpeed = 16;
 		}
+		setupGame();
 	}
 
 	public Paddle getLeftPaddle() {
@@ -183,7 +181,7 @@ public class GameLoop extends Thread {
 	public void setBall(Ball ball) {
 		this.ball = ball;
 	}
-	
+
 	public static String getScore() {
 		return score;
 	}
