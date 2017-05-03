@@ -10,8 +10,8 @@ public class PongController {
 	private PongFrame pongFrame;
 
 	public PongController() {
-		this.keyboardListener = new KeyboardListener();
 		this.gameLoop = new GameLoop(this);
+		this.keyboardListener = new KeyboardListener(gameLoop);
 		this.pongFrame = new PongFrame(this);
 	}
 

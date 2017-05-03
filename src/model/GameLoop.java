@@ -13,7 +13,7 @@ public class GameLoop extends Thread {
 	private static int player1Score = 0;
 	private static int player2Score = 0;
 	private static String score = "Player 1: " + player1Score + " Player 2: " + player2Score;
-	private int gameSpeed = 16;
+	private int gameSpeed = 20;
 	private boolean running = true;
 
 	public GameLoop(PongController pongController) {
@@ -38,11 +38,11 @@ public class GameLoop extends Thread {
 				
 			}else{
 				do {
-					yMove = (int) (Math.random() * 6) - 4;
-				}while (yMove == 0);
+					yMove = (int) (Math.random() * 10) - 6;
+				}while (yMove < 2 && yMove > -2);
 				do {
-					xMove = (int) (Math.random() * 6) - 4;
-				}while (xMove == 0);
+					xMove = (int) (Math.random() * 10) - 6;
+				}while (xMove < 2 && xMove > -2);
 			}
 			repaintScreen();
 		}
@@ -60,6 +60,7 @@ public class GameLoop extends Thread {
 		this.ball.setX((int) (gameWidth / 2 - (ball.getWidth() / 2)));
 		this.ball.setY((int) (gameHeight / 2 - (ball.getHeight() / 2)));
 		keyboard.playing = false;
+		gameSpeed = 16;
 	}
 //startComplexity
 	//startAbstraction
@@ -100,8 +101,15 @@ public class GameLoop extends Thread {
 	}
 //endComplexity
 	private void xBounce() {
-		if (gameSpeed >= 8) {
+		if (gameSpeed >= 2) {
 			gameSpeed = gameSpeed - 2;
+		}else if(gameSpeed !=0)
+		{
+			gameSpeed = gameSpeed-1;
+		}
+		if (gameSpeed <= 6) {
+			setLeftPaddleHeight(getLeftPaddle().getHeight() + 10);
+			setRightPaddleHeight(getRightPaddle().getHeight() + 10);
 		}
 		xMove = xMove * -1;
 		ball.setX(ball.getX() + xMove);
@@ -119,16 +127,16 @@ public class GameLoop extends Thread {
 		int gameHeight = pongController.getPongFrame().getHeight();
 		KeyboardListener keyboard = pongController.getKeyboardListeners();
 		if (keyboard.isUpPressed() && rightPaddle.getY() >= 3.1) {
-			rightPaddle.setY(rightPaddle.getY() - 3);
+			rightPaddle.setY(rightPaddle.getY() - 4);
 		}
 		if (keyboard.isDownPressed() && rightPaddle.getY() <= gameHeight - 75) {
-			rightPaddle.setY(rightPaddle.getY() + 3);
+			rightPaddle.setY(rightPaddle.getY() + 4);
 		}
 		if (keyboard.isWPressed() && leftPaddle.getY() >= 3.1) {
-			leftPaddle.setY(leftPaddle.getY() - 3);
+			leftPaddle.setY(leftPaddle.getY() - 4);
 		}
 		if (keyboard.isSPressed() && leftPaddle.getY() <= gameHeight - 75) {
-			leftPaddle.setY(leftPaddle.getY() + 3);
+			leftPaddle.setY(leftPaddle.getY() + 4);
 		}
 	}
 
@@ -172,6 +180,14 @@ public class GameLoop extends Thread {
 
 	public void setRightPaddle(Paddle rightPaddle) {
 		this.rightPaddle = rightPaddle;
+	}
+	
+	public void setRightPaddleHeight(int height){
+		this.rightPaddle.setHeight(height);
+	}
+	
+	public void setLeftPaddleHeight(int height){
+		this.leftPaddle.setHeight(height);
 	}
 
 	public Ball getBall() {
